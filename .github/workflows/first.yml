@@ -5,14 +5,18 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
   workflow_dispatch:
 
 permissions:
   id-token: write   # necessário para o OIDC
   contents: read    # necessário para actions/checkout
 
+
 jobs:
+  
   aws-check:
+    environment: golden
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
