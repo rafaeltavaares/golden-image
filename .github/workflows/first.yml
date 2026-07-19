@@ -19,10 +19,11 @@ jobs:
 
     steps:
       - name: Configure AWS Credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
         
         with:
           role-to-assume: arn:aws:iam::012848347268:role/golden-image-role
+          role-session-name: teste-vai-pfvr
           aws-region: us-east-1
 
       - name: Run a multi-line script
