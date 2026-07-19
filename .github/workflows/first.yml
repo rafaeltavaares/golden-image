@@ -1,31 +1,24 @@
-name: CI
+name: AWS STS Get Caller Identity
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
 
 permissions:
-  id-token: write   # necessário para solicitar o JWT do OIDC
+  id-token: write   # necessário para o OIDC
   contents: read    # necessário para actions/checkout
 
 jobs:
-  build:
+  aws-check:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout Source
+      - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Configure AWS Credentials via OIDC
+
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::012848347268:role/golden-image-role
-          role-session-name: teste-vai-pfvr
+          role-to-assume: arn:aws:iam::012848347268:role/github-actions
           aws-region: us-east-1
-          web-identity-token-file: ${{ env.GITHUB_STEP_SUMMARY }}
 
-      - name: Run a multi-line script
-        run: |
-          aws sts get-caller-identity
+      - name: STS Get Caller Identity
+        run: aws sts get-caller-identity
