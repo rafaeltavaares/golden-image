@@ -21,6 +21,9 @@ jobs:
         run: |
           echo "Repo: ${{ github.repository }}"
           echo "Ref: ${{ github.ref }}"
+          echo "acess key: ${{ secrets.AWS_ACCESS }}"
+          echo "acess key: ${{ secrets.AWS_SECRET }}"
+          
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
