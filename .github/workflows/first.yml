@@ -12,20 +12,19 @@ permissions:
   contents: read    # necessário para actions/checkout
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - name: checkout Source
         uses: actions/checkout@v4
+      
       - name: Configure AWS Credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4.1.0
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::012848347268:role/golden-image-role
           role-session-name: teste-vai-pfvr
           aws-region: us-east-1
+          web-identity-token-file: ${{ env.GITHUB_STEP_SUMMARY }}
 
       - name: Run a multi-line script
         run: |
