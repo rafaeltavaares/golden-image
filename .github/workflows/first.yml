@@ -1,19 +1,15 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
-  id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout
-
+  id-token: write   # necessário para solicitar o JWT do OIDC
+  contents: read    # necessário para actions/checkout
 
 jobs:
 
@@ -30,8 +26,6 @@ jobs:
           role-to-assume: arn:aws:iam::012848347268:role/actions
           aws-region: us-east-1
 
-      # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo "minha secret é ${{secrets.AWS_SECRET}}",
           aws sts get-caller-identity
