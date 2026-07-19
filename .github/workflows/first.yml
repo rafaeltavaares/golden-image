@@ -10,26 +10,29 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
+  permissions:
+    id-token: write   # This is required for requesting the JWT
+    contents: read    # This is required for actions/checkout
+  
   workflow_dispatch:
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    environment: golden
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    environment: golden
+
+    steps:
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::012848347268:role/actions
+          aws-region: us-east-1
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo "minha secret é ${{secrets.AWS_SECRET}}",
-          echo test, and deploy your project.
+          aws sts get-caller-identity
