@@ -31,5 +31,5 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo $AWS_SECRET,
+          echo "minha secret é ${{secrets.AWS_SECRET}}",
           echo test, and deploy your project.
