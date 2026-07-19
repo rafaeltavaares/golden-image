@@ -22,9 +22,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         
         with:
-          role-to-assume: arn:aws:iam::012848347268:role/actions
+          role-to-assume: arn:aws:iam::012848347268:role/golden-image-role
           aws-region: us-east-1
-          role-skip-session-tagging: true
 
       - name: Run a multi-line script
         run: |
