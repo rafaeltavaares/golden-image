@@ -21,19 +21,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Debug OIDC token
-        run: |
-          echo "Repo: ${{ github.repository }}"
-          echo "Ref: ${{ github.ref }}"
-          echo "acess key: ${{ secrets.AWS_ACCESS }}"
-          echo "acess key: ${{ secrets.AWS_SECRET }}"
           
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET }}
-          aws-region: us-east-1
+          aws-region: ${{secrets.AWS_REGIONS}}
       
       - name: STS Get Caller Identity
         run: aws sts get-caller-identity
