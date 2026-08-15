@@ -16,17 +16,6 @@ permissions:
   contents: read
 
 jobs:
-  debug-oidc:
-    name: Debug OIDC
-    runs-on: ubuntu-latest
-
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Debug OIDC claims
-        uses: github/actions-oidc-debugger@main
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -41,7 +30,7 @@ jobs:
 
   deploy:
     name: AWS Deploy
-    # Não permite que Pull Requests assumam a IAM Role
+
     if: github.event_name != 'pull_request'
 
     runs-on: ubuntu-latest
@@ -55,6 +44,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::012848347268:role/github-actions
           aws-region: us-east-1
+          audience: sts.amazonaws.com
 
       - name: Verify AWS identity
         run: |

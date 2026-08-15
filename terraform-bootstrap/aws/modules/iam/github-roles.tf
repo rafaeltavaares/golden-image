@@ -28,14 +28,8 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:rafaeltavaares/golden-image:ref:refs/heads/main"
+        "repo:rafaeltavaares@170961410/golden-image@1305282940:ref:refs/heads/main"
       ]
     }
   }
-}
-
-resource "aws_iam_role" "github_actions" {
-  name = "github-actions"
-
-  assume_role_policy = data.aws_iam_policy_document.github_actions_assume_role.json
 }
