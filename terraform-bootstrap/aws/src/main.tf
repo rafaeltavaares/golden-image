@@ -7,6 +7,6 @@ module "state" {
 }
 
 module "idp" {
-  source = "../modules/iam"
+  source = "../modules/iam/identity-providers"
 
 }

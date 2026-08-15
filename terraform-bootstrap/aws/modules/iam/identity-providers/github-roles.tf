@@ -33,3 +33,27 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
     }
   }
 }
+
+
+resource "aws_iam_role" "github-actions" {
+  name = "github-actions"
+  assume_role_policy = data.aws_iam_policy_document.github_actions_assume_role.json
+}
+
+resource "aws_iam_role_policy" "iac-role-policy"{
+  name = "iac-deploy"
+  role = aws_iam_role.github-actions.name
+
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action   = ["*"]
+          Effect   = "Allow"
+          Resource = "*"
+        }
+      ]
+    }
+  )
+}
