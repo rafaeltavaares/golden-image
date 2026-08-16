@@ -3,6 +3,7 @@ data "aws_iam_policy_document" "sb_terraform_assume_role" {
     effect = "Allow"
 
     actions = [
+      "sts:TagSession",
       "sts:AssumeRole"
     ]
 
