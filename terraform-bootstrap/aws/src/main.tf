@@ -1,12 +1,18 @@
+
+
+
 module "state" {
   source = "../modules/s3/state"
 
   name    = local.bucket_name
   region  = data.aws_region.current.region
-  account = data.aws_caller_identity.current.account_id
+  account = var.aws-account-id
 }
 
 module "idp" {
-  source = "../modules/iam/identity-providers"
-
+  source = "../modules/iam/identity-provider"
+  organization = {
+    account_name = var.organization.account_name
+    account_id   = var.organization.account_id
+  }
 }
