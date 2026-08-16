@@ -51,7 +51,7 @@ jobs:
       - name: Assume Terraform Role
         uses: aws-actions/configure-aws-credentials@v6
         with:
-          role-to-assume: arn:aws:iam::123456789012:role/sb-terraform
+          role-to-assume: arn:aws:iam::012848347268:role/sb-gha-terraform
           aws-region: us-east-1
           role-chaining: true
 
